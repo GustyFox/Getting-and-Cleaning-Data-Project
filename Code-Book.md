@@ -24,5 +24,6 @@ http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartpho
 3. Name the columns properly
   - Extrect only columns of interest
   - Calculates mean and standard deviation
+  
 4.Creates a Second Tidy Data Set  (MyTidySet)
 
