@@ -12,37 +12,37 @@ unzip(zipfile="./data/Dataset.zip",exdir="./data")
 # 1. Merges the training and the test sets to create one data set:
 
 
-      x_train <- read.table("./data/UCI HAR Dataset/train/X_train.txt")
-      y_train <- read.table("./data/UCI HAR Dataset/train/y_train.txt")
+      Fst_train <- read.table("./data/UCI HAR Dataset/train/Fst_train.txt")
+      Snd_train <- read.table("./data/UCI HAR Dataset/train/Snd_train.txt")
       subject_train <- read.table("./data/UCI HAR Dataset/train/subject_train.txt")
 
-      x_test <- read.table("./data/UCI HAR Dataset/test/X_test.txt")
-      y_test <- read.table("./data/UCI HAR Dataset/test/y_test.txt")
+      Fst_test <- read.table("./data/UCI HAR Dataset/test/Fst_test.txt")
+      Snd_test <- read.table("./data/UCI HAR Dataset/test/Snd_test.txt")
       subject_test <- read.table("./data/UCI HAR Dataset/test/subject_test.txt")
       
       features <- read.table('./data/UCI HAR Dataset/features.txt')
 
       activityLabels = read.table('./data/UCI HAR Dataset/activity_labels.txt')
       
-      colnames(x_train) <- features[,2] 
-      colnames(y_train) <-"activityId"
+      colnames(Fst_train) <- features[,2] 
+      colnames(Snd_train) <-"activityId"
       colnames(subject_train) <- "subjectId"
       
-      colnames(x_test) <- features[,2] 
-      colnames(y_test) <- "activityId"
+      colnames(Fst_test) <- features[,2] 
+      colnames(Snd_test) <- "activityId"
       colnames(subject_test) <- "subjectId"
       
       colnames(activityLabels) <- c('activityId','activityType')
       
   #  Merging 
-      mrg_train <- cbind(y_train, subject_train, x_train)
-      mrg_test <- cbind(y_test, subject_test, x_test)
-      setAllInOne <- rbind(mrg_train, mrg_test)
+      mrg_train <- cbind(Snd_train, subject_train, Fst_train)
+      mrg_test <- cbind(Snd_test, subject_test, Fst_test)
+      BindAllInOne <- rbind(mrg_train, mrg_test)
       
 # 2. Extracts only the measurements on the mean and standard deviation for each measurement with appropriate names
   
 
-      colNames <- colnames(setAllInOne)
+      colNames <- colnames(BindAllInOne)
       
 
       mean_and_std <- (grepl("activityId" , colNames) | 
@@ -50,7 +50,7 @@ unzip(zipfile="./data/Dataset.zip",exdir="./data")
                        grepl("mean.." , colNames) | 
                        grepl("std.." , colNames) )
       
-      setForMeanAndStd <- setAllInOne[ , mean_and_std == TRUE]
+      setForMeanAndStd <- BindAllInOne[ , mean_and_std == TRUE]
       
 # 3. Uses descriptive activity names to name the activities in the data set
       setWithActivityNames <- merge(setForMeanAndStd, activityLabels,
