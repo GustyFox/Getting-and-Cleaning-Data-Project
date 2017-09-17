@@ -22,8 +22,7 @@ http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartpho
 1. Download, unzip and load source data into R
 2. Merge the data sets of interest
 3. Name the columns properly
-  - Extrect only columns of interest
-  - Calculates mean and standard deviation
-  
+      i. Extrect only columns of interest
+      ii. Calculates mean and standard deviation
 4.Creates a Second Tidy Data Set  (MyTidySet)
 
