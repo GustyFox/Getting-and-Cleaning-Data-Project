@@ -1,6 +1,6 @@
 library(plyr)
 
-# 0. Download data
+# 1. Download data
 if(!file.exists("./data")){dir.create("./data")}
 fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
 download.file(fileUrl,destfile="./data/Dataset.zip")
@@ -9,7 +9,7 @@ download.file(fileUrl,destfile="./data/Dataset.zip")
 unzip(zipfile="./data/Dataset.zip",exdir="./data")
 
 
-# 1. Merges the training and the test sets to create one data set:
+# 2. Merges the training and the test sets to create one data set:
 
 
       Fst_train <- read.table("./data/UCI HAR Dataset/train/Fst_train.txt")
@@ -39,7 +39,7 @@ unzip(zipfile="./data/Dataset.zip",exdir="./data")
       mrg_test <- cbind(Snd_test, subject_test, Fst_test)
       BindAllInOne <- rbind(mrg_train, mrg_test)
       
-# 2. Extracts only the measurements on the mean and standard deviation for each measurement with appropriate names
+# 3. Extracts only the measurements on the mean and standard deviation for each measurement with appropriate names
   
 
       colNames <- colnames(BindAllInOne)
@@ -52,13 +52,12 @@ unzip(zipfile="./data/Dataset.zip",exdir="./data")
       
       setForMeanAndStd <- BindAllInOne[ , mean_and_std == TRUE]
       
-# 3. Uses descriptive activity names to name the activities in the data set
+# 3.1 Uses descriptive activity names to name the activities in the data set
       setWithActivityNames <- merge(setForMeanAndStd, activityLabels,
                                    by='activityId', all.x=TRUE)
       
-# 4. Appropriately labels the data set with descriptive variable names - was done previously
-      
-# 5. From the data set in step 4, creates a second tidy data set with the average of each variable for each activity and each subject.
+     
+# 4. From the data set in step 4, creates a second tidy data set with the average of each variable for each activity and each subject.
       
       MyTidySet <- aggregate(. ~subjectId + activityId, setWithActivityNames, mean)
       MyTidySet <- MyTidySet[order(MyTidySet$subjectId, MyTidySet$activityId),]
